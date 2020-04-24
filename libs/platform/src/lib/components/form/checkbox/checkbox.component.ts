@@ -59,6 +59,7 @@ export class CheckboxComponent extends BaseInput implements AfterViewInit {
     }
     set value(selectValue: any) {
         this._value = selectValue;
+        this._cd.markForCheck();
         // calling super.setValue() causing lots of issues. so setting value here.
         // rest functionality imported from baseinput
     }
