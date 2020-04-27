@@ -64,16 +64,6 @@ export class CheckboxComponent extends BaseInput implements AfterViewInit {
         // rest functionality imported from baseinput
     }
 
-    /** set status value , will be coming from checkbox group*/
-    set stateStatus(newStatus: Status) {
-        this._status = newStatus;
-    }
-
-    /** returns form status */
-    get stateStatus(): Status {
-        return this.status;
-    }
-
     /** due to an issue in Angular bind the formControl instance instead of using formControlName.
      *  https://github.com/angular/angular/issues/17685
      */
