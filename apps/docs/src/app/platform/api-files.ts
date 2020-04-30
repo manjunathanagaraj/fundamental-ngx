@@ -12,5 +12,6 @@ export const API_FILES = {
     searchField: ['SearchFieldComponent'],
     radioGroup: ['RadioGroupComponent'],
     menuButton: ['MenuButtonComponent'],
-    splitMenuButton: ['SplitMenuButtonComponent']
+    splitMenuButton: ['SplitMenuButtonComponent'],
+    checkbox: ['CheckboxComponent'],
 };

@@ -22,6 +22,8 @@ import { PlatformRadioGroupHeaderComponent } from './component-docs/platform-for
 import { PlatformRadioGroupDocsComponent } from './component-docs/platform-forms/radio-group/platform-radio-group-docs.component';
 import { PlatformDocsSplitMenuButtonComponent } from './component-docs/platform-split-menu-button/platform-split-menu-button.component';
 import { PlatformDocsSplitMenuButtonHeaderComponent } from './component-docs/platform-split-menu-button/platform-split-menu-button-header/platform-split-menu-button-header.component';
+import { PlatformCheckboxDocsComponent } from './component-docs/platform-forms/checkbox/platform-checkbox-docs.component';
+import { PlatformCheckboxHeaderComponent } from './component-docs/platform-forms/checkbox/platform-checkbox-header/platform-checkbox-header.component';
 
 export const ROUTES: Routes = [
     {
@@ -45,6 +47,14 @@ export const ROUTES: Routes = [
                 children: [
                     { path: '', component: PlatformActionBarDocsComponent },
                     { path: 'api', component: ApiComponent, data: { content: API_FILES.actionbar } }
+                ]
+            },
+            {
+                path: 'checkbox',
+                component: PlatformCheckboxHeaderComponent,
+                children: [
+                    { path: '', component: PlatformCheckboxDocsComponent },
+                    { path: 'api', component: ApiComponent, data: { content: API_FILES.checkbox } }
                 ]
             },
             {

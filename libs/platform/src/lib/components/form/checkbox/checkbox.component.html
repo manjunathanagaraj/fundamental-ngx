@@ -1,0 +1,18 @@
+<div fd-form-item>
+    <fd-checkbox
+        [inputId]="id"
+        [name]="name"
+        [disabled]="disabled"
+        [label]="label"
+        [attr.aria-label]="ariaLabel || null"
+        [attr.aria-labelledby]="ariaLabelledby"
+        [tristate]="tristate"
+        [tristateSelectable]="tristateSelectable"
+        [state]="stateStatus"
+        [compact]="contentDensity == 'compact'"
+        [ngModel]="checkboxValue"
+        (ngModelChange)="onClick()"
+    >
+        <ng-content></ng-content>
+    </fd-checkbox>
+</div>

@@ -1,0 +1,32 @@
+<form [formGroup]="customForm" (ngSubmit)="onSubmit(customForm.value)">
+    <fieldset fd-fieldset>
+        <h2>Compact Checkbox with Reactive form and Error Status Style</h2>
+        <span>Checkbox with Error status</span>
+        <fdp-checkbox
+            [id]="'checkbox-019'"
+            [name]="'checkbox-019'"
+            [label]="'Mandatory checkbox'"
+            [isBinary]="true"
+            [contentDensity]="'compact'"
+            formControlName="example1"
+        ></fdp-checkbox>
+    </fieldset>
+
+    <fieldset fd-fieldset>
+        <h2>Mandatory Checkbox with Reactive form and Error Status Style</h2>
+        <span>Checkbox is Mandatory to check or it should show Error on submit</span>
+        <fdp-checkbox
+            [id]="'checkbox-020'"
+            [name]="'checkbox-020'"
+            [contentDensity]="'compact'"
+            [isBinary]="true"
+            formControlName="example2"
+        >
+            Do you Agrre with <a href="#"> Terms and Conditions</a>?
+        </fdp-checkbox>
+    </fieldset>
+    <fieldset fd-fieldset>
+        <button class="button" type="submit">Submit</button>
+    </fieldset>
+</form>
+<div>Agreed with Terms and Conditions?: {{ customForm.getRawValue() | json }}</div>

@@ -23,6 +23,7 @@ export class PlatformDocumentationComponent {
     components = [
         { url: 'platform/action-bar', name: 'Action Bar' },
         { url: 'platform/button', name: 'Button' },
+        { url: 'platform/checkbox', name: 'Checkbox' },
         { url: 'platform/menu', name: 'Menu' },
         { url: 'platform/search-field', name: 'Search Field' },
         { url: 'platform/select', name: 'Select' },

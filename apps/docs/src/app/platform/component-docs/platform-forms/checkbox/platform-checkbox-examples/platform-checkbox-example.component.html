@@ -1,0 +1,301 @@
+<h2>Coxy Checkbox with template driven form</h2>
+<form class="flex-form">
+    <fieldset fd-fieldset>
+        <span>Example 1: Binary Checkbox with Default false value</span>
+        <fdp-checkbox
+            [id]="'checkbox-1'"
+            [name]="'checkbox-1'"
+            [label]="'Checkbox1'"
+            [isBinary]="true"
+            [(ngModel)]="example1"
+        ></fdp-checkbox>
+    </fieldset>
+
+    <fieldset fd-fieldset>
+        <span>Example 2: Binary Checkbox with Default true value</span>
+        <fdp-checkbox
+            [id]="'checkbox-2'"
+            [name]="'checkbox-2'"
+            [label]="'Checkbox2'"
+            [aria-label]="'Checkbox2'"
+            [aria-labelledby]="'Checkbox2'"
+            [isBinary]="true"
+            [(ngModel)]="example2"
+        ></fdp-checkbox>
+    </fieldset>
+
+    <fieldset fd-fieldset>
+        <span>Example 3: Binary Checkbox without Default value</span>
+        <fdp-checkbox
+            [id]="'checkbox-3'"
+            [name]="'checkbox-3'"
+            [label]="'Checkbox3'"
+            [isBinary]="true"
+            [(ngModel)]="example3"
+        ></fdp-checkbox>
+    </fieldset>
+
+    <fieldset fd-fieldset>
+        <span>Example 4: Default Checkbox </span>
+        <fdp-checkbox
+            [id]="'checkbox-4'"
+            [name]="'checkbox-4'"
+            [label]="'Checkbox4'"
+            [value]="'Checkbox4'"
+            [(ngModel)]="example4"
+        ></fdp-checkbox>
+    </fieldset>
+
+    <fieldset fd-fieldset>
+        <span>Example 5: checkbox with Default formcontrol value given</span>
+        <fdp-checkbox
+            [id]="'checkbox-5'"
+            [name]="'checkbox-5'"
+            [label]="'Checkbox5'"
+            [value]="'Checkbox5'"
+            [(ngModel)]="example5"
+        ></fdp-checkbox>
+    </fieldset>
+
+    <fieldset fd-fieldset>
+        <span>Example 6.1: Checkbox combined with other checkbox</span>
+        <fdp-checkbox
+            [id]="'checkbox-6'"
+            [name]="'checkbox-6'"
+            [label]="'Checkbox6'"
+            [value]="'Checkbox6'"
+            [(ngModel)]="example6"
+        ></fdp-checkbox>
+    </fieldset>
+
+    <fieldset fd-fieldset>
+        <span>Example 6.2: Checkbox combined with "Example 6.1"</span>
+        <fdp-checkbox
+            [id]="'checkbox-7'"
+            [name]="'checkbox-7'"
+            [label]="'Checkbox7'"
+            [value]="'Checkbox7'"
+            [(ngModel)]="example6"
+        ></fdp-checkbox>
+    </fieldset>
+
+    <fieldset fd-fieldset>
+        <span>Example 7.1: Default formcontrol value given for Example 7.1 and Example 7.2</span>
+        <fdp-checkbox
+            [id]="'checkbox-8'"
+            [name]="'checkbox-8'"
+            [label]="'Checkbox8'"
+            [value]="'Checkbox8'"
+            [(ngModel)]="example7"
+        ></fdp-checkbox>
+    </fieldset>
+
+    <fieldset fd-fieldset>
+        <span>Example 7.2</span>
+        <fdp-checkbox
+            [id]="'checkbox-9'"
+            [name]="'checkbox-9'"
+            [label]="'Checkbox9'"
+            [value]="'Checkbox9'"
+            [(ngModel)]="example7"
+        ></fdp-checkbox>
+    </fieldset>
+
+    <fieldset fd-fieldset>
+        <span>Example 7.3</span>
+        <fdp-checkbox
+            [id]="'checkbox-10'"
+            [name]="'checkbox-10'"
+            [label]="'Checkbox10'"
+            [value]="'Checkbox10'"
+            [(ngModel)]="example7"
+        ></fdp-checkbox>
+    </fieldset>
+
+    <fieldset fd-fieldset>
+        <span>Example for Disabled Checkbox</span>
+        <fdp-checkbox
+            [id]="'checkbox-010'"
+            [name]="'checkbox-010'"
+            [label]="'Checkbox010'"
+            [value]="'Checkbox010'"
+            [disabled]="true"
+        ></fdp-checkbox>
+    </fieldset>
+</form>
+<div>Example 1: {{ example1 }}</div>
+<div>Example 2: {{ example2 }}</div>
+<div>Example 3: {{ example3 }}</div>
+<div>Example 4: {{ example4 }}</div>
+<div>Example 5: {{ example5 }}</div>
+<div>Example 6: {{ example6 }}</div>
+<div>Example 7: {{ example7 }}</div>
+
+<br />
+<br />
+
+<h2>Compact Checkbox with Reactive form</h2>
+<form [formGroup]="customForm">
+    <fieldset fd-fieldset>
+        <span>Example 8: Binary Checkbox with default false value</span>
+        <fdp-checkbox
+            [id]="'checkbox-11'"
+            [name]="'checkbox-11'"
+            [label]="'Checkbox11'"
+            [isBinary]="true"
+            [contentDensity]="'compact'"
+            formControlName="example8"
+        ></fdp-checkbox>
+    </fieldset>
+
+    <fieldset fd-fieldset>
+        <span>Example 9: Binary Checkbox with default true value</span>
+        <fdp-checkbox
+            [id]="'checkbox-12'"
+            [name]="'checkbox-12'"
+            [label]="'Checkbox12'"
+            [isBinary]="true"
+            [contentDensity]="'compact'"
+            formControlName="example9"
+        ></fdp-checkbox>
+    </fieldset>
+
+    <fieldset fd-fieldset>
+        <span>Example 10: Binary Checkbox without default value</span>
+        <fdp-checkbox
+            [id]="'checkbox-13'"
+            [name]="'checkbox-13'"
+            [label]="'Checkbox13'"
+            [isBinary]="true"
+            [contentDensity]="'compact'"
+            formControlName="example10"
+        ></fdp-checkbox>
+    </fieldset>
+
+    <fieldset fd-fieldset>
+        <span>Example 11: Default Checkbox</span>
+        <fdp-checkbox
+            [id]="'checkbox-14'"
+            [name]="'checkbox-14'"
+            [label]="'Checkbox14'"
+            [value]="'Checkbox14'"
+            [contentDensity]="'compact'"
+            formControlName="example11"
+        ></fdp-checkbox>
+    </fieldset>
+
+    <fieldset fd-fieldset>
+        <span>Example 12: Checkbox with Default value given</span>
+        <fdp-checkbox
+            [id]="'checkbox-15'"
+            [name]="'checkbox-15'"
+            [label]="'Checkbox15'"
+            [value]="'Checkbox15'"
+            [contentDensity]="'compact'"
+            formControlName="example12"
+        ></fdp-checkbox>
+    </fieldset>
+
+    <fieldset fd-fieldset>
+        <span>Example 13.1: Checkbox combined with Example 13.2</span>
+        <fdp-checkbox
+            [id]="'checkbox-16'"
+            [name]="'checkbox-16'"
+            [label]="'Checkbox16'"
+            [value]="'Checkbox16'"
+            [contentDensity]="'compact'"
+            [formControl]="customForm.controls.example13"
+        ></fdp-checkbox>
+    </fieldset>
+
+    <fieldset fd-fieldset>
+        <span>Example 13.2: Checkbox combined with Example 13.1</span>
+        <fdp-checkbox
+            [id]="'checkbox-17'"
+            [name]="'checkbox-17'"
+            [label]="'Checkbox17'"
+            [value]="'Checkbox17'"
+            [contentDensity]="'compact'"
+            [formControl]="customForm.controls.example13"
+        ></fdp-checkbox>
+    </fieldset>
+
+    <fieldset fd-fieldset>
+        <span>Example 14.1: Checkbox combined with Example 14.2 and Example 14.3</span>
+        <fdp-checkbox
+            [id]="'checkbox-18'"
+            [name]="'checkbox-18'"
+            [label]="'Checkbox18'"
+            [value]="'Checkbox18'"
+            [contentDensity]="'compact'"
+            [formControl]="customForm.controls.example14"
+        ></fdp-checkbox>
+    </fieldset>
+
+    <fieldset fd-fieldset>
+        <span>Example 14.2: Checkbox combined with Example 14.1 and Example 14.3</span>
+        <fdp-checkbox
+            [id]="'checkbox-19'"
+            [name]="'checkbox-19'"
+            [label]="'Checkbox19'"
+            [value]="'Checkbox19'"
+            [contentDensity]="'compact'"
+            [formControl]="customForm.controls.example14"
+        ></fdp-checkbox>
+    </fieldset>
+
+    <fieldset fd-fieldset>
+        <span>Example 14.3: Checkbox combined with Example 14.1 and Example 14.2</span>
+        <fdp-checkbox
+            [id]="'checkbox-20'"
+            [name]="'checkbox-20'"
+            [label]="'Checkbox20'"
+            [value]="'Checkbox20'"
+            [contentDensity]="'compact'"
+            [formControl]="customForm.controls.example14"
+        ></fdp-checkbox>
+    </fieldset>
+
+    <fieldset fd-fieldset>
+        <span>Example for Disabled Checkbox</span>
+        <fdp-checkbox
+            [id]="'checkbox-0020'"
+            [name]="'checkbox-0020'"
+            [label]="'Checkbox0020'"
+            [value]="'Checkbox0020'"
+            formControlName="disabledcheckbox"
+        ></fdp-checkbox>
+    </fieldset>
+</form>
+<br />
+<br />
+<h2>TriState checkbox example</h2>
+<form [formGroup]="customForm">
+    <fieldset fd-fieldset>
+        <span>Example 15: Checkbox with Tristate</span>
+        <fdp-checkbox
+            [id]="'checkbox-21'"
+            [name]="'checkbox-21'"
+            [label]="'Checkbox21'"
+            [value]="'Checkbox21'"
+            [tristate]="true"
+            [contentDensity]="'compact'"
+            formControlName="example15"
+        ></fdp-checkbox>
+    </fieldset>
+
+    <fieldset fd-fieldset>
+        <span>Example 16: Checkbox with Tristate unselectable</span>
+        <fdp-checkbox
+            [id]="'checkbox-22'"
+            [name]="'checkbox-22'"
+            [label]="'Checkbox22'"
+            [value]="'Checkbox22'"
+            [tristate]="true"
+            [tristateSelectable]="false"
+            [contentDensity]="'compact'"
+            formControlName="example16"
+        ></fdp-checkbox>
+    </fieldset>
+</form>
+<div>values: {{ customForm.getRawValue() | json }}</div>
