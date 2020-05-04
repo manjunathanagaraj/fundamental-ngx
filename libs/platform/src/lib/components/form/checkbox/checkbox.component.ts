@@ -1,28 +1,35 @@
 import {
-    Component,
-    ChangeDetectorRef,
-    Self,
-    Optional,
-    EventEmitter,
-    Output,
-    Input,
-    ViewChild,
     AfterViewInit,
+    ChangeDetectorRef,
+    ChangeDetectionStrategy,
+    Component,
+    EventEmitter,
+    Input,
+    OnInit,
+    Optional,
+    Output,
+    Self,
+    ViewChild,
+    ViewEncapsulation
 } from '@angular/core';
-import { NgControl, NgForm, FormControl } from '@angular/forms';
+import { NgControl, NgForm } from '@angular/forms';
 import { CheckboxComponent as CoreCheckboxComponent } from '@fundamental-ngx/core';
 import { BaseInput } from '../base.input';
-import { Status } from './../form-control';
 
+/**
+ * Checkbox implementation based on the
+ * https://github.com/SAP/fundamental-ngx/wiki/Platform:-Checkbox-Component-Technical-Design
+ * documents.
+ *
+ *
+ */
 @Component({
     selector: 'fdp-checkbox',
     templateUrl: './checkbox.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None
 })
-export class CheckboxComponent extends BaseInput implements AfterViewInit {
-    /** reference of child checkbox implementation */
-    @ViewChild(CoreCheckboxComponent)
-    private corecheckbox: CoreCheckboxComponent;
-
+export class CheckboxComponent extends BaseInput implements AfterViewInit, OnInit {
     /** set to true if binary checkbox */
     @Input()
     isBinary: boolean = false;
@@ -58,26 +65,27 @@ export class CheckboxComponent extends BaseInput implements AfterViewInit {
         return super.getValue();
     }
     set value(selectValue: any) {
-        this._value = selectValue;
-        this._cd.markForCheck();
-        // calling super.setValue() causing lots of issues. so setting value here.
-        // rest functionality imported from baseinput
+        this.setValue(selectValue);
     }
-
-    /** due to an issue in Angular bind the formControl instance instead of using formControlName.
-     *  https://github.com/angular/angular/issues/17685
-     */
-    @Input()
-    formControl: FormControl;
 
     /** Emitting checkbox change event */
     @Output()
     change = new EventEmitter();
 
-    /** tracking checkbox current value */
-    checkboxValue: any;
+    /** @hidden
+     * tracking checkbox current value
+     */
+    public checkboxValue: any;
 
-    /** stores  formControl values*/
+    /* @hidden
+     * reference of child checkbox implementation
+     */
+    @ViewChild(CoreCheckboxComponent)
+    private corecheckbox: CoreCheckboxComponent;
+
+    /* @hidden
+     * stores  formControl values
+     */
     private model: any;
 
     constructor(
@@ -92,33 +100,23 @@ export class CheckboxComponent extends BaseInput implements AfterViewInit {
     writeValue(value: any): void {
         if (value !== null) {
             // value of checkbox will have type string, formcontrol is expected as array
-            if (typeof value !== 'string') {
-                this.checkboxValue = value;
-                // Expecting Formcontrol values as Array [] or ['value']
-                if (Array.isArray(value)) {
-                    if (this.value && value.includes(this.value)) {
-                        this.checkboxValue = this.value;
-                    } else {
-                        if (this.tristate && value.includes(null)) {
-                            this.checkboxValue = null;
-                        } else {
-                            this.checkboxValue = undefined;
-                        }
-                    }
-
-                    this.model = value;
-                    this.onChange(this.model);
-                } else {
-                    if (this.isBinary && !this.checkboxValue) {
-                        this.checkboxValue = false;
-                        this.onChange(this.checkboxValue);
-                    }
-                }
+            if (typeof value === 'string') {
+                super.writeValue(value);
+            } else if (typeof value !== 'string') {
+                this._setCoreCheckboxControl(value);
             }
-            // baseInput writevalue functionality
-            // Emitting message
-            this.stateChanges.next('writeValue');
         }
+    }
+
+    ngOnInit(): void {
+        if (this.isBinary) {
+            // if binary checkbox does not have control value, set default to false
+            this.checkboxValue = this.checkboxValue ? this.checkboxValue : false;
+            this.onChange(this.checkboxValue);
+        } else {
+            this.onChange(this.model);
+        }
+        super.ngOnInit();
     }
 
     /** child checkbox is initialized here */
@@ -128,6 +126,7 @@ export class CheckboxComponent extends BaseInput implements AfterViewInit {
             this.corecheckbox.values.trueValue = this.value;
             this.corecheckbox.values.falseValue = undefined;
 
+            // set core checkbox control value based on platform checkbox control value
             if (this.value && this.model && this.model.includes(this.value)) {
                 this.checkboxValue = this.value;
             } else {
@@ -148,38 +147,45 @@ export class CheckboxComponent extends BaseInput implements AfterViewInit {
     /** update controller on checkbox state change */
     public onClick(): void {
         this.checkboxValue = this.corecheckbox.checkboxValue;
-        this.updateModel();
+        this._updateModel();
     }
 
-    /** Adds checkbox or removes checkbox from model */
-    private updateModel(): void {
+    /** @hidden
+     * Adds checkbox or removes checkbox from model
+     */
+    private _updateModel(): void {
         if (this.isBinary) {
             this.onChange(this.checkboxValue);
+            this.change.emit(this.checkboxValue);
         } else {
             // checkbox has been selected
             if (this.corecheckbox.inputLabel.nativeElement.checked) {
-                this.addValue();
+                this._addValue();
             } else {
-                this.removeValue();
+                this._removeValue();
             }
             this.onChange(this.model);
 
-            if (this.formControl) {
-                this.formControl.setValue(this.model);
+            if (this.ngControl) {
+                this.ngControl.control.setValue(this.model);
             }
+            this.change.emit(this.model);
         }
-        this.change.emit();
     }
 
-    /** triggered when checkbox is unchecked, value removed from model */
-    private removeValue(): void {
+    /** @hidden
+     * triggered when checkbox is unchecked, value removed from model
+     */
+    private _removeValue(): void {
         if (this.model) {
             this.model = this.model.filter((val: string) => val !== this.value);
         }
     }
 
-    /** triggered when checkbox is checked, value added to model */
-    private addValue(): void {
+    /** @hidden
+     * triggered when checkbox is checked, value added to model
+     */
+    private _addValue(): void {
         if (this.corecheckbox.checkboxState === 'indeterminate') {
             this.model = [...this.model, this.checkboxValue];
         } else if (this.model) {
@@ -191,6 +197,34 @@ export class CheckboxComponent extends BaseInput implements AfterViewInit {
         // tristate checkbox move from intermediate to checked
         if (this.tristate && this.corecheckbox.checkboxState !== 'indeterminate') {
             this.model = this.model.filter((val: string) => val !== null);
+        }
+    }
+
+    /**
+     * @hidden
+     * @param value setting core checkbox control value
+     */
+    private _setCoreCheckboxControl(value: any): void {
+        // Expecting Formcontrol values as Array [] or ['value']
+        if (Array.isArray(value)) {
+            if (this.value && value.includes(this.value)) {
+                this.checkboxValue = this.value;
+            } else {
+                if (this.tristate && value.includes(null)) {
+                    this.checkboxValue = null;
+                } else {
+                    this.checkboxValue = undefined;
+                }
+            }
+            this.model = value;
+            this.onChange(this.model);
+        } else {
+            if (this.isBinary && !this.checkboxValue && !value) {
+                this.checkboxValue = false;
+            } else {
+                this.checkboxValue = value;
+            }
+            this.onChange(this.checkboxValue);
         }
     }
 }

@@ -3,25 +3,25 @@ import { Component, DoCheck } from '@angular/core';
 
 @Component({
     selector: 'fdp-checkbox-style',
-    templateUrl: 'platform-checkbox-styling.component.html',
+    templateUrl: 'platform-checkbox-styling.component.html'
 })
 export class PlatformChekboxStyleComponent implements DoCheck {
     customForm = new FormGroup({
         example1: new FormControl(''),
-        example2: new FormControl('', Validators.required),
+        example2: new FormControl('')
     });
 
     formcontrolRef1 = this.customForm.get('example1');
     formcontrolRef2 = this.customForm.get('example2');
 
-    ngDoCheck() {
+    ngDoCheck(): void {
         if (this.formcontrolRef1.value !== true) {
             this.formcontrolRef1.setErrors({ invalid: true });
             this.formcontrolRef1.markAsTouched();
         }
     }
 
-    onSubmit(values: any) {
+    onSubmit(values: any): void {
         if (this.formcontrolRef2.value !== true) {
             this.formcontrolRef2.setErrors({ invalid: true });
             this.formcontrolRef2.markAsTouched();
