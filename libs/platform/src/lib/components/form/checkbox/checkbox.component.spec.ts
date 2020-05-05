@@ -5,12 +5,13 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CheckboxComponent } from './checkbox.component';
 import { Component, ViewChildren, QueryList } from '@angular/core';
 import { CheckboxModule, FormModule } from '@fundamental-ngx/core';
+import { FdpFormGroupModule } from './../form-group/fdp-form.module';
 
 @Component({
     selector: 'fdp-test-checkbox',
     template: `
-        <form [formGroup]="customForm">
-            <fieldset fd-fieldset>
+        <fdp-form-group [formGroup]="customForm">
+            <fdp-form-field>
                 <fdp-checkbox
                     [id]="'checkbox-0'"
                     [name]="'checkbox-0'"
@@ -20,42 +21,42 @@ import { CheckboxModule, FormModule } from '@fundamental-ngx/core';
                     [value]="'Yes'"
                     formControlName="example1"
                 ></fdp-checkbox>
-            </fieldset>
+            </fdp-form-field>
 
-            <fieldset fd-fieldset>
+            <fdp-form-field>
                 <fdp-checkbox
                     [id]="'checkbox-1'"
                     [name]="'checkbox-1'"
                     [label]="'Checkbox1'"
                     [value]="'Checkbox1'"
                     [contentDensity]="'compact'"
-                    [formControl]="customForm.controls.example2"
+                    formControlName="example2"
                 ></fdp-checkbox>
-            </fieldset>
+            </fdp-form-field>
 
-            <fieldset fd-fieldset>
+            <fdp-form-field>
                 <fdp-checkbox
                     [id]="'checkbox-2'"
                     [name]="'checkbox-2'"
                     [label]="'Checkbox2'"
                     [value]="'Checkbox2'"
                     [contentDensity]="'compact'"
-                    [formControl]="customForm.controls.example2"
+                    formControlName="example2"
                 ></fdp-checkbox>
-            </fieldset>
+            </fdp-form-field>
 
-            <fieldset fd-fieldset>
+            <fdp-form-field>
                 <fdp-checkbox
                     [id]="'checkbox-3'"
                     [name]="'checkbox-3'"
                     [label]="'Checkbox3'"
                     [value]="'Checkbox3'"
                     [contentDensity]="'compact'"
-                    [formControl]="customForm.controls.example2"
+                    formControlName="example2"
                 ></fdp-checkbox>
-            </fieldset>
+            </fdp-form-field>
 
-            <fieldset fd-fieldset>
+            <fdp-form-field>
                 <fdp-checkbox
                     [id]="'checkbox-4'"
                     [name]="'checkbox-4'"
@@ -63,9 +64,9 @@ import { CheckboxModule, FormModule } from '@fundamental-ngx/core';
                     [value]="'Checkbox4'"
                     formControlName="disabledcheckbox"
                 ></fdp-checkbox>
-            </fieldset>
-        </form>
-    `,
+            </fdp-form-field>
+        </fdp-form-group>
+    `
 })
 class TestCheckboxComponent {
     @ViewChildren(CheckboxComponent)
@@ -74,7 +75,7 @@ class TestCheckboxComponent {
     customForm = new FormGroup({
         example1: new FormControl(['Yes']),
         example2: new FormControl(['Checkbox1', 'Checkbox2']),
-        disabledcheckbox: new FormControl({ value: [], disabled: true }),
+        disabledcheckbox: new FormControl({ value: [], disabled: true })
     });
 }
 
@@ -84,8 +85,8 @@ describe('Checkbox test Component', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [FormModule, CheckboxModule, FormsModule, ReactiveFormsModule],
-            declarations: [TestCheckboxComponent, CheckboxComponent],
+            imports: [FdpFormGroupModule, FormModule, CheckboxModule, FormsModule, ReactiveFormsModule],
+            declarations: [TestCheckboxComponent, CheckboxComponent]
         }).compileComponents();
     }));
 
@@ -108,7 +109,7 @@ describe('Checkbox test Component', () => {
         const fdpElem = fixture.debugElement.query(By.css('fdp-checkbox'));
         const fdElem = fixture.debugElement.query(By.css('fd-checkbox'));
         const checkboxInput = fixture.debugElement.query(By.css('input'));
-        const checkboxLable = fixture.debugElement.query(By.css('label'));
+        const checkboxLable = fixture.debugElement.query(By.css('.fd-checkbox__label'));
 
         // fdp-checkbox
         expect(fdpElem.nativeElement.getAttribute('ng-reflect-name')).toEqual('checkbox-0');
@@ -144,7 +145,7 @@ describe('Checkbox test Component', () => {
         expect(checkboxes[0].checkboxValue).toEqual('Yes');
         expect(host.customForm.get('example1').value).toEqual(['Yes']);
 
-        const checkboxLable = fixture.debugElement.query(By.css('label'));
+        const checkboxLable = fixture.debugElement.query(By.css('.fd-checkbox__label'));
 
         checkboxLable.nativeElement.click();
         await wait(fixture);
@@ -180,8 +181,7 @@ describe('Checkbox test Component', () => {
         fixture.detectChanges();
         await wait(fixture);
 
-        const inputElem1 = fixture.debugElement.query(By.css('input'));
-        expect(inputElem1.nativeElement.classList.contains('is-error')).toBeTruthy();
+        expect(host.customForm.status).toEqual('INVALID');
     });
 
     it('should select multiple checkboxes in one formcontrol', async () => {
@@ -189,7 +189,7 @@ describe('Checkbox test Component', () => {
         fixture.detectChanges();
 
         const checkboxes = host.fdpCheckboxes.toArray();
-        const checkboxLables = fixture.debugElement.queryAll(By.css('label'));
+        const checkboxLables = fixture.debugElement.queryAll(By.css('.fd-checkbox__label'));
 
         await wait(fixture);
         fixture.detectChanges();
@@ -231,7 +231,7 @@ describe('Checkbox test Component', () => {
         fixture.detectChanges();
 
         const checkboxes = host.fdpCheckboxes.toArray();
-        const checkboxLables = fixture.debugElement.queryAll(By.css('label'));
+        const checkboxLables = fixture.debugElement.queryAll(By.css('.fd-checkbox__label'));
 
         await wait(fixture);
         fixture.detectChanges();
@@ -250,8 +250,8 @@ describe('Checkbox test Component', () => {
 @Component({
     selector: 'fdp-test-checkbox-template',
     template: `
-        <form>
-            <fieldset fd-fieldset>
+        <fdp-form-group>
+            <fdp-form-field>
                 <fdp-checkbox
                     [id]="'checkbox-0'"
                     [name]="'checkbox-0'"
@@ -260,9 +260,9 @@ describe('Checkbox test Component', () => {
                     [value]="'checkbox0'"
                     [(ngModel)]="example1"
                 ></fdp-checkbox>
-            </fieldset>
-        </form>
-    `,
+            </fdp-form-field>
+        </fdp-form-group>
+    `
 })
 class TestCheckboxComponentTemplateDriven {
     example1 = ['checkbox0'];
@@ -274,8 +274,8 @@ describe('Checkbox test Component with Template driven form', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [FormModule, CheckboxModule, FormsModule, ReactiveFormsModule],
-            declarations: [TestCheckboxComponentTemplateDriven, CheckboxComponent],
+            imports: [FdpFormGroupModule, FormModule, CheckboxModule, FormsModule, ReactiveFormsModule],
+            declarations: [TestCheckboxComponentTemplateDriven, CheckboxComponent]
         }).compileComponents();
     }));
 
@@ -298,7 +298,7 @@ describe('Checkbox test Component with Template driven form', () => {
         const fdpElem = fixture.debugElement.query(By.css('fdp-checkbox'));
         const fdElem = fixture.debugElement.query(By.css('fd-checkbox'));
         const checkboxInput = fixture.debugElement.query(By.css('input'));
-        const checkboxLable = fixture.debugElement.query(By.css('label'));
+        const checkboxLable = fixture.debugElement.query(By.css('.fd-checkbox__label'));
 
         // fdp-checkbox
         expect(fdpElem.nativeElement.getAttribute('ng-reflect-name')).toEqual('checkbox-0');
@@ -326,7 +326,7 @@ describe('Checkbox test Component with Template driven form', () => {
         await wait(fixture);
         fixture.detectChanges();
 
-        const checkboxLable = fixture.debugElement.query(By.css('label'));
+        const checkboxLable = fixture.debugElement.query(By.css('.fd-checkbox__label'));
 
         await wait(fixture);
         fixture.detectChanges();

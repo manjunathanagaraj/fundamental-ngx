@@ -8,7 +8,7 @@ import { Component, DoCheck } from '@angular/core';
 export class PlatformChekboxStyleComponent implements DoCheck {
     customForm = new FormGroup({
         example1: new FormControl(''),
-        example2: new FormControl('')
+        example2: new FormControl(true, Validators.requiredTrue)
     });
 
     formcontrolRef1 = this.customForm.get('example1');
@@ -21,10 +21,7 @@ export class PlatformChekboxStyleComponent implements DoCheck {
         }
     }
 
-    onSubmit(values: any): void {
-        if (this.formcontrolRef2.value !== true) {
-            this.formcontrolRef2.setErrors({ invalid: true });
-            this.formcontrolRef2.markAsTouched();
-        }
+    onSubmit(): void {
+        alert('Status: ' + this.formcontrolRef2.status);
     }
 }

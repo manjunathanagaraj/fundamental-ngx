@@ -5,7 +5,6 @@ import {
     Component,
     EventEmitter,
     Input,
-    OnInit,
     Optional,
     Output,
     Self,
@@ -29,7 +28,7 @@ import { BaseInput } from '../base.input';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class CheckboxComponent extends BaseInput implements AfterViewInit, OnInit {
+export class CheckboxComponent extends BaseInput implements AfterViewInit {
     /** set to true if binary checkbox */
     @Input()
     isBinary: boolean = false;
@@ -65,7 +64,12 @@ export class CheckboxComponent extends BaseInput implements AfterViewInit, OnIni
         return super.getValue();
     }
     set value(selectValue: any) {
-        this.setValue(selectValue);
+        if (selectValue !== this.value) {
+            // baseInput calling this.onchange(value), which causing Expression change error
+            this._value = selectValue;
+            this.stateChanges.next('writeValue');
+            this._cd.markForCheck();
+        }
     }
 
     /** Emitting checkbox change event */
@@ -86,7 +90,7 @@ export class CheckboxComponent extends BaseInput implements AfterViewInit, OnIni
     /* @hidden
      * stores  formControl values
      */
-    private model: any;
+    private multiSelectModel: any;
 
     constructor(
         protected _changeDetector: ChangeDetectorRef,
@@ -99,24 +103,13 @@ export class CheckboxComponent extends BaseInput implements AfterViewInit, OnIni
     /** ControlvalueAccessor */
     writeValue(value: any): void {
         if (value !== null) {
-            // value of checkbox will have type string, formcontrol is expected as array
-            if (typeof value === 'string') {
+            // formcontrol is expected as array or binary
+            if (typeof value === 'string' && value) {
                 super.writeValue(value);
             } else if (typeof value !== 'string') {
                 this._setCoreCheckboxControl(value);
             }
         }
-    }
-
-    ngOnInit(): void {
-        if (this.isBinary) {
-            // if binary checkbox does not have control value, set default to false
-            this.checkboxValue = this.checkboxValue ? this.checkboxValue : false;
-            this.onChange(this.checkboxValue);
-        } else {
-            this.onChange(this.model);
-        }
-        super.ngOnInit();
     }
 
     /** child checkbox is initialized here */
@@ -127,10 +120,10 @@ export class CheckboxComponent extends BaseInput implements AfterViewInit, OnIni
             this.corecheckbox.values.falseValue = undefined;
 
             // set core checkbox control value based on platform checkbox control value
-            if (this.value && this.model && this.model.includes(this.value)) {
+            if (this.value && this.multiSelectModel && this.multiSelectModel.includes(this.value)) {
                 this.checkboxValue = this.value;
             } else {
-                if (this.tristate && this.model.includes(null)) {
+                if (this.tristate && this.multiSelectModel.includes(null)) {
                     this.checkboxValue = null;
                 } else {
                     this.checkboxValue = undefined;
@@ -151,7 +144,7 @@ export class CheckboxComponent extends BaseInput implements AfterViewInit, OnIni
     }
 
     /** @hidden
-     * Adds checkbox or removes checkbox from model
+     * Adds checkbox or removes checkbox from multiSelectModel
      */
     private _updateModel(): void {
         if (this.isBinary) {
@@ -164,12 +157,13 @@ export class CheckboxComponent extends BaseInput implements AfterViewInit, OnIni
             } else {
                 this._removeValue();
             }
-            this.onChange(this.model);
+            this.onChange(this.multiSelectModel);
 
+            // for multiSelect checkbox, all checkbox should have same copy of multiSelectModel.
             if (this.ngControl) {
-                this.ngControl.control.setValue(this.model);
+                this.ngControl.control.setValue(this.multiSelectModel);
             }
-            this.change.emit(this.model);
+            this.change.emit(this.multiSelectModel);
         }
     }
 
@@ -177,8 +171,8 @@ export class CheckboxComponent extends BaseInput implements AfterViewInit, OnIni
      * triggered when checkbox is unchecked, value removed from model
      */
     private _removeValue(): void {
-        if (this.model) {
-            this.model = this.model.filter((val: string) => val !== this.value);
+        if (this.multiSelectModel) {
+            this.multiSelectModel = this.multiSelectModel.filter((val: string) => val !== this.value);
         }
     }
 
@@ -187,26 +181,28 @@ export class CheckboxComponent extends BaseInput implements AfterViewInit, OnIni
      */
     private _addValue(): void {
         if (this.corecheckbox.checkboxState === 'indeterminate') {
-            this.model = [...this.model, this.checkboxValue];
-        } else if (this.model) {
-            this.model = [...this.model, this.checkboxValue];
+            this.multiSelectModel = [...this.multiSelectModel, this.checkboxValue];
+        } else if (this.multiSelectModel) {
+            this.multiSelectModel = [...this.multiSelectModel, this.checkboxValue];
         } else {
-            this.model = [this.checkboxValue];
+            this.multiSelectModel = [this.checkboxValue];
         }
 
         // tristate checkbox move from intermediate to checked
         if (this.tristate && this.corecheckbox.checkboxState !== 'indeterminate') {
-            this.model = this.model.filter((val: string) => val !== null);
+            this.multiSelectModel = this.multiSelectModel.filter((val: string) => val !== null);
         }
     }
 
     /**
      * @hidden
-     * @param value setting core checkbox control value
+     * @param value , Array or boolean
+     * setting core checkbox control value
      */
     private _setCoreCheckboxControl(value: any): void {
-        // Expecting Formcontrol values as Array [] or ['value']
+        // Expecting Formcontrol values as Array [] or boolean
         if (Array.isArray(value)) {
+            // handling ngmodel/formcontrol as Array.
             if (this.value && value.includes(this.value)) {
                 this.checkboxValue = this.value;
             } else {
@@ -216,9 +212,12 @@ export class CheckboxComponent extends BaseInput implements AfterViewInit, OnIni
                     this.checkboxValue = undefined;
                 }
             }
-            this.model = value;
-            this.onChange(this.model);
+
+            this.multiSelectModel = value;
+            this.onChange(this.multiSelectModel);
+            this._changeDetector.detectChanges();
         } else {
+            // handling ngmodel/formcontrol as Binary value.
             if (this.isBinary && !this.checkboxValue && !value) {
                 this.checkboxValue = false;
             } else {

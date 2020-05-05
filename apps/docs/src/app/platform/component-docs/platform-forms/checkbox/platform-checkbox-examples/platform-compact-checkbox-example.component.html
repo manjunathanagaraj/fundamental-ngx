@@ -1,0 +1,154 @@
+<h2>Compact Checkbox with Reactive form</h2>
+<div>Example 9-11: Binary Checkboxes</div>
+<fdp-form-group #fg1 [multiLayout]="true" [formGroup]="customForm">
+    <fdp-form-field #ffl11 [id]="'checkbox-11'" zone="zLeft" rank="4">
+        <fdp-checkbox
+            [id]="'checkbox-11'"
+            [name]="'checkbox-11'"
+            [label]="'Checkbox11'"
+            [isBinary]="true"
+            [contentDensity]="'compact'"
+            formControlName="example9"
+        ></fdp-checkbox>
+    </fdp-form-field>
+
+    <fdp-form-field #ffl12 [id]="'checkbox-12'" zone="zLeft" rank="4">
+        <fdp-checkbox
+            [name]="'checkbox-12'"
+            [label]="'Checkbox12'"
+            [isBinary]="true"
+            [contentDensity]="'compact'"
+            formControlName="example10"
+        ></fdp-checkbox>
+    </fdp-form-field>
+
+    <fdp-form-field #ffl13 [id]="'checkbox-13'" zone="zLeft" rank="4">
+        <fdp-checkbox
+            [name]="'checkbox-13'"
+            [label]="'Checkbox13'"
+            [isBinary]="true"
+            [contentDensity]="'compact'"
+            formControlName="example11"
+        ></fdp-checkbox>
+    </fdp-form-field>
+</fdp-form-group>
+
+<div>Example 12-13: Checkboxes with value</div>
+<fdp-form-group #fg2 [multiLayout]="true" [formGroup]="customForm">
+    <fdp-form-field #ffl14 [id]="'checkbox-14'" zone="zLeft" rank="4">
+        <fdp-checkbox
+            [name]="'checkbox-14'"
+            [label]="'Checkbox14'"
+            [value]="'Checkbox14'"
+            [contentDensity]="'compact'"
+            formControlName="example12"
+        ></fdp-checkbox>
+    </fdp-form-field>
+
+    <fdp-form-field #ffl15 [id]="'checkbox-15'" zone="zLeft" rank="4">
+        <fdp-checkbox
+            [name]="'checkbox-15'"
+            [label]="'Checkbox15'"
+            [value]="'Checkbox15'"
+            [contentDensity]="'compact'"
+            formControlName="example13"
+        ></fdp-checkbox>
+    </fdp-form-field>
+</fdp-form-group>
+
+<div>Example 14: Multi checkbox selection</div>
+<fdp-form-group #fg3 [multiLayout]="true" [formGroup]="customForm">
+    <fdp-form-field #ffl16 [id]="'checkbox-16'" zone="zLeft" rank="4">
+        <fdp-checkbox
+            [name]="'checkbox-16'"
+            [label]="'Checkbox16'"
+            [value]="'Checkbox16'"
+            [contentDensity]="'compact'"
+            formControlName="example14"
+        ></fdp-checkbox>
+    </fdp-form-field>
+
+    <fdp-form-field #ffl17 [id]="'checkbox-17'" zone="zLeft" rank="4">
+        <fdp-checkbox
+            [name]="'checkbox-16'"
+            [label]="'Checkbox17'"
+            [value]="'Checkbox17'"
+            [contentDensity]="'compact'"
+            formControlName="example14"
+        ></fdp-checkbox>
+    </fdp-form-field>
+</fdp-form-group>
+
+<div>Example 15: Another Multi checkbox selection</div>
+<fdp-form-group #fg4 [multiLayout]="true" [formGroup]="customForm">
+    <fdp-form-field #ffl18 [id]="'checkbox-18'" zone="zLeft" rank="4">
+        <fdp-checkbox
+            [name]="'checkbox-18'"
+            [label]="'Checkbox18'"
+            [value]="'Checkbox18'"
+            [contentDensity]="'compact'"
+            formControlName="example15"
+        ></fdp-checkbox>
+    </fdp-form-field>
+
+    <fdp-form-field #ffl19 [id]="'checkbox-19'" zone="zLeft" rank="4">
+        <fdp-checkbox
+            [name]="'checkbox-18'"
+            [label]="'Checkbox19'"
+            [value]="'Checkbox19'"
+            [contentDensity]="'compact'"
+            formControlName="example15"
+        ></fdp-checkbox>
+    </fdp-form-field>
+
+    <fdp-form-field #ffl20 [id]="'checkbox-20'" zone="zLeft" rank="4">
+        <fdp-checkbox
+            [name]="'checkbox-18'"
+            [label]="'Checkbox20'"
+            [value]="'Checkbox20'"
+            [contentDensity]="'compact'"
+            formControlName="example15"
+        ></fdp-checkbox>
+    </fdp-form-field>
+</fdp-form-group>
+
+<div>Example 16: Disabled Checkbox</div>
+<fdp-form-group #fg04 [multiLayout]="true" [formGroup]="customForm">
+    <fdp-form-field #ffl21 [id]="'checkbox-020'" zone="zLeft" rank="4">
+        <fdp-checkbox
+            [name]="'disabledcheckbox'"
+            [label]="'disabledcheckbox'"
+            [value]="'disabledcheckbox'"
+            [contentDensity]="'compact'"
+            formControlName="example16"
+        ></fdp-checkbox>
+    </fdp-form-field>
+</fdp-form-group>
+<div>values: {{ customForm.getRawValue() | json }}</div>
+
+<h2>Example 17-18: TriState checkbox example</h2>
+<fdp-form-group #fg5 [multiLayout]="true" [formGroup]="triStateForm">
+    <fdp-form-field #ffl22 [id]="'checkbox-21'" zone="zLeft" rank="4">
+        <fdp-checkbox
+            [name]="'checkbox-21'"
+            [label]="'Checkbox21'"
+            [value]="'Checkbox21'"
+            [tristate]="true"
+            [contentDensity]="'compact'"
+            formControlName="example17"
+        ></fdp-checkbox>
+    </fdp-form-field>
+
+    <fdp-form-field #ffl23 [id]="'checkbox-22'" zone="zLeft" rank="4">
+        <fdp-checkbox
+            [name]="'checkbox-22'"
+            [label]="'Checkbox22'"
+            [value]="'Checkbox22'"
+            [tristate]="true"
+            [tristateSelectable]="false"
+            [contentDensity]="'compact'"
+            formControlName="example18"
+        ></fdp-checkbox>
+    </fdp-form-field>
+</fdp-form-group>
+<div>values: {{ triStateForm.getRawValue() | json }}</div>

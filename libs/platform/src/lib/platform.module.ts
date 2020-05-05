@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FundamentalNgxCoreModule } from '@fundamental-ngx/core';
+import { FdpFormGroupModule } from './components/form/form-group/fdp-form.module';
 import { PlatformButtonModule } from './components/button/button.module';
 import { PlatformSearchFieldModule } from './components/search-field/search-field.module';
 import { ActionBarModule } from './components/action-bar/action-bar.module';
@@ -15,6 +16,7 @@ import { PlatformCheckboxModule } from './components/form/checkbox/checkbox.modu
 @NgModule({
     imports: [CommonModule, FundamentalNgxCoreModule],
     exports: [
+        FdpFormGroupModule,
         PlatformButtonModule,
         PlatformSearchFieldModule,
         ActionBarModule,
@@ -24,7 +26,7 @@ import { PlatformCheckboxModule } from './components/form/checkbox/checkbox.modu
         PlatformRadioGroupModule,
         PlatformMenuButtonModule,
         PlatformSplitMenuButtonModule,
-        PlatformCheckboxModule,
-    ],
+        PlatformCheckboxModule
+    ]
 })
 export class FundamentalNgxPlatformModule {}

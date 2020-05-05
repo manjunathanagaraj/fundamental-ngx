@@ -67,7 +67,8 @@ import { PlatformMenuButtonCompactExampleComponent } from './component-docs/plat
 import { PlatformMenuButtonDocsComponent } from './component-docs/platform-menu-button/platform-menu-button-docs.component';
 import { PlatformCheckboxDocsComponent } from './component-docs/platform-forms/checkbox/platform-checkbox-docs.component';
 import { PlatformCheckboxHeaderComponent } from './component-docs/platform-forms/checkbox/platform-checkbox-header/platform-checkbox-header.component';
-import { PlatformChekboxExampleComponent } from './component-docs/platform-forms/checkbox/platform-checkbox-examples/platform-checkbox-example.component';
+import { PlatformCozyChekboxExampleComponent } from './component-docs/platform-forms/checkbox/platform-checkbox-examples/platform-cozy-checkbox-example.component';
+import { PlatformCompactChekboxExampleComponent } from './component-docs/platform-forms/checkbox/platform-checkbox-examples/platform-compact-checkbox-example.component';
 import { PlatformChekboxStyleComponent } from './component-docs/platform-forms/checkbox/platform-checkbox-examples/platform-checkbox-styling.component';
 
 import { PlatformSelectDocsComponent } from './component-docs/platform-select/platform-select-docs.component';
@@ -109,7 +110,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
         PlatformActionbarWithPositiveNegativeActionsExampleComponent,
         PlatformCheckboxDocsComponent,
         PlatformCheckboxHeaderComponent,
-        PlatformChekboxExampleComponent,
+        PlatformCozyChekboxExampleComponent,
+        PlatformCompactChekboxExampleComponent,
         PlatformChekboxStyleComponent,
         PlatformLinkStandardExampleComponent,
         PlatformLinkEmphasizedExampleComponent,

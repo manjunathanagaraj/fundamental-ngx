@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import * as checkboxExamplehtml from '!raw-loader!./platform-checkbox-examples/platform-checkbox-example.component.html';
-import * as checkboxExampleSrc from '!raw-loader!./platform-checkbox-examples/platform-checkbox-example.component.ts';
+import * as cozyCheckboxExamplehtml from '!raw-loader!./platform-checkbox-examples/platform-cozy-checkbox-example.component.html';
+import * as cozyCheckboxExampleSrc from '!raw-loader!./platform-checkbox-examples/platform-cozy-checkbox-example.component.ts';
+import * as compactCheckboxExamplehtml from '!raw-loader!./platform-checkbox-examples/platform-compact-checkbox-example.component.html';
+import * as compactCheckboxExampleSrc from '!raw-loader!./platform-checkbox-examples/platform-compact-checkbox-example.component.ts';
 import * as checkboxStylehtml from '!raw-loader!./platform-checkbox-examples/platform-checkbox-styling.component.html';
 import * as checkboxStyleSrc from '!raw-loader!./platform-checkbox-examples/platform-checkbox-styling.component.ts';
 import { ExampleFile } from '../../../../documentation/core-helpers/code-example/example-file';
@@ -10,17 +12,31 @@ import { ExampleFile } from '../../../../documentation/core-helpers/code-example
     templateUrl: 'platform-checkbox-docs.component.html',
 })
 export class PlatformCheckboxDocsComponent {
-    standardCheckbox: ExampleFile[] = [
+    cozyCheckbox: ExampleFile[] = [
         {
             language: 'html',
-            code: checkboxExamplehtml,
-            fileName: 'platform-checkbox-example',
+            code: cozyCheckboxExamplehtml,
+            fileName: 'platform-cozy-checkbox-example',
         },
         {
             language: 'typescript',
-            code: checkboxExampleSrc,
-            fileName: 'platform-checkbox-example',
-            component: 'PlatformChekboxExampleComponent',
+            code: cozyCheckboxExampleSrc,
+            fileName: 'platform-cozy-checkbox-example',
+            component: 'PlatformCozyChekboxExampleComponent',
+        },
+    ];
+    
+    compactCheckbox: ExampleFile[] = [
+        {
+            language: 'html',
+            code: compactCheckboxExamplehtml,
+            fileName: 'platform-compact-checkbox-example',
+        },
+        {
+            language: 'typescript',
+            code: compactCheckboxExampleSrc,
+            fileName: 'platform-compact-checkbox-example',
+            component: 'PlatformCompactChekboxExampleComponent',
         },
     ];
 
