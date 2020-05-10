@@ -65,7 +65,8 @@ export class CheckboxComponent extends BaseInput implements AfterViewInit {
     }
     set value(selectValue: any) {
         if (selectValue !== this.value) {
-            // baseInput calling this.onchange(value), which causing Expression change error
+            // baseInput class is calling this.onchange(value),
+            // which causing Expression change error, so doing all steps here.
             this._value = selectValue;
             this.stateChanges.next('writeValue');
             this._cd.markForCheck();
@@ -104,11 +105,7 @@ export class CheckboxComponent extends BaseInput implements AfterViewInit {
     writeValue(value: any): void {
         if (value !== null) {
             // formcontrol is expected as array or binary
-            if (typeof value === 'string' && value) {
-                super.writeValue(value);
-            } else if (typeof value !== 'string') {
-                this._setCoreCheckboxControl(value);
-            }
+            this._setCoreCheckboxControl(value);
         }
     }
 
