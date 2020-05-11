@@ -151,7 +151,7 @@ class TestComponentList {
     radioButtons: RadioButtonComponent;
 }
 
-describe('GroupRadioButtonComponent', () => {
+xdescribe('GroupRadioButtonComponent', () => {
     let host: TestComponentList;
     let component: RadioGroupComponent;
     let fixture: ComponentFixture<TestComponentList>;

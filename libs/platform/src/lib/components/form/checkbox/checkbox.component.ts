@@ -103,7 +103,7 @@ export class CheckboxComponent extends BaseInput implements AfterViewInit {
 
     /** ControlvalueAccessor */
     writeValue(value: any): void {
-        if (value !== null) {
+        if (value) {
             // formcontrol is expected as array or binary
             this._setCoreCheckboxControl(value);
         }
