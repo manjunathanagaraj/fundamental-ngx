@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, ChangeDetectionStrategy, Input, ElementRef } from '@angular/core';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy, Input } from '@angular/core';
 
 type LabelType = 'numeric' | 'only-icon' | 'icon';
 
@@ -26,11 +26,6 @@ export class InfoLabelComponent {
     @Input()
     color: string;
  
-    constructor(private _elementRef: ElementRef) {}
-
-    /** @hidden */
-    elementRef(): ElementRef<any> {
-        return this._elementRef;
-    }
+    constructor() {}
 
 }
