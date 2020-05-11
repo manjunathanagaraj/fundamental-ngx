@@ -11,7 +11,7 @@ import * as PlatfromInfoLableTextExample from '!raw-loader!./platform-info-label
 })
 export class PlatformInfoLabelDocsComponent {
 
-    PlatformdefaultInfoLabelHtmlType: ExampleFile[] = [
+    platformDefaultInfoLabelHtmlType: ExampleFile[] = [
         {
             language: 'html',
             code: PlatformInfoLableDefaultExample,
